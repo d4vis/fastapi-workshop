@@ -14,3 +14,8 @@ def get_session() -> Session:
         yield session
     finally:
         session.close()
+
+
+# from workshop.database import engine
+# from workshop.tables import Base
+# Base.metadata.create_all(engine)
