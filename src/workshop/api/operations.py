@@ -1,8 +1,7 @@
 from typing import Optional
 from fastapi import APIRouter, Depends
 
-from ..database import get_session
-from ..models.operations import Operation, OperationKind
+from ..models.operations import Operation, OperationKind, OperationCreate
 from ..services.operations import OperationsService
 
 router = APIRouter(prefix='/operations')
@@ -14,3 +13,19 @@ def get_operations(
         service: OperationsService = Depends()
 ):
     return service.get_list(kind=kind)
+
+
+@router.post('/', response_model=Operation)
+def create_operation(
+    operation_data: OperationCreate,
+    service: OperationsService = Depends()
+):
+    return service.create_operation(operation_data)
+
+
+@router.get('/{operation_id}', response_model=Operation)
+def get_operation(
+    operation_id: int,
+    service: OperationsService = Depends()
+):
+    return service.get_operation(operation_id=operation_id)
