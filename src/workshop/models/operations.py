@@ -28,3 +28,8 @@ class Operation(OperationBase):
 class OperationCreate(OperationBase):
     # for documentation and future expansion
     pass
+
+
+class OperationUpdate(OperationBase):
+    # for documentation and future expansion
+    pass
