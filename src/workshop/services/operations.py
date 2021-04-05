@@ -34,6 +34,13 @@ class OperationsService:
         self.session.commit()
         return operation
 
+    def create_many_operations(self, user_id: int, operations_data: list[OperationCreate]) -> list[tables.Operation]:
+        operations = [tables.Operation(
+            **operation_data.dict(), user_id=user_id) for operation_data in operations_data]
+        self.session.add_all(operations)
+        self.session.commit()
+        return operations
+
     def update_operation(self, user_id: int, operation_id: int, operation_data: OperationUpdate) -> tables.Operation:
         operation = self._get(user_id, operation_id)
         for field, values in operation_data:
